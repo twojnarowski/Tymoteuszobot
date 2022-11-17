@@ -1,18 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Discord.Commands;
+﻿namespace Tymoteuszobot.Modules;
 
-namespace Tymoteuszobot.Modules
+using Discord.Commands;
+using Tymoteuszobot.Services;
+
+public class Command : ModuleBase<SocketCommandContext>
 {
-    public class Commands : ModuleBase<SocketCommandContext>
+    [Command("ping")]
+    public async Task Ping()
     {
-        [Command("ping")]
-        public async Task Ping()
-        {
-            await ReplyAsync("Pong");
-        }
+        await ReplyAsync("Pong");
+    }
+
+    [Command("suchar")]
+    public async Task Joke()
+    {
+        var joke = await JokeService.GetJoke();
+        await ReplyAsync(joke);
     }
 }
