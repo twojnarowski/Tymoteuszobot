@@ -1,8 +1,10 @@
 ﻿using System.Reflection;
 using Discord;
 using Discord.Commands;
+using Discord.Interactions;
 using Discord.WebSocket;
 using Microsoft.Extensions.DependencyInjection;
+using Tymoteuszobot.Services;
 
 namespace Tymoteuszobot;
 
@@ -28,6 +30,7 @@ public class Program
         _services = new ServiceCollection()
             .AddSingleton(_client)
             .AddSingleton(_commands)
+            .AddSingleton(x => new InteractionService(x.GetRequiredService<DiscordSocketClient>()))
             .BuildServiceProvider();
 
         var token = File.ReadAllText("token.txt");
